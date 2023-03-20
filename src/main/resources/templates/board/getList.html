@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<h1> getList </h1>
+<label for="userCheck">
+    <input id="userCheck" type="text" name="userNick" th:value="${session.nickName}" readonly></input>
+</label>
+
+<a href="/board/createBoard">등록</a>
+<button class="btn btn-primary" id="modifyBtn" type="button" onclick="modify()">선택수정</button>
+<button class="btn btn-danger" id="deleteBtn" type="button">선택삭제</button>
+
+
+
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>
+                <label for="selectAll"><input id="selectAll" type="checkbox"/></label>
+            </td>
+            <td>
+                NO
+            </td>
+            <td>
+                Title
+            </td>
+            <td>
+                Content
+            </td>
+            <td>
+                NickName
+            </td>
+            <td>
+                중요도
+            </td>
+        </tr>
+        </thead>
+        <tbody id="dataList">
+        <tr th:each="x : ${list}">
+
+            <td>
+                <input type="checkbox" id="selectNo" th:value="${x.no}"/>
+            </td>
+
+            <td>
+                <a th:href="'/board/modify/'+${x.no}"
+                   th:text="${x.no}"></a>
+            </td>
+            <td th:text="${x.title}">
+                <p th:text="${x.title}"></p>
+            </td>
+            <td th:text="${x.content}">
+                <p th:text="${x.content}"></p>
+            </td>
+            <td th:text="${x.nickName}">
+                <p th:text="${x.nickName}"></p>
+            </td>
+            <td th:if="${x.strong eq true}">
+                <input class="readonly" type="checkbox" id="strong" name="strong" checked />
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+<form name="modifyForm" method="get"
+      action="/board/modify">
+    <input type="hidden" name="idList"/>
+</form>
+
+
+
+<form name="deleteForm" method="post"
+      action="/board/delete">
+    <input type="hidden" name="idList"/>
+
+</form>
+
+
+<!--/* 검색 */-->
+<div class="search_box">
+    <form id="searchForm" onsubmit="return false;" autocomplete="off">
+        <div class="searchGroup">
+            <select id="searchType" name="searchType" title="검색 유형 선택" class="required">
+                <option value="">전체 검색</option>
+                <option value="title">제목</option>
+                <option value="nickName">닉네임</option>
+            </select>
+            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" required/>
+            <button type="button" onclick="movePage();">검색</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var check = $('input[name=strong]').val();
+
+        if (check === 'on') {
+            $('input[name=strong]').parent().parent().css('background', "yellow");
+        }
+
+
+        $('#selectAll').on('click', function () {
+
+            var checked = $(this).is(':checked');
+
+
+
+            $('#dataList input[type=checkbox]').each(function (k, v) {
+                $(this).prop('checked', checked);
+            });
+
+
+        });
+
+
+
+        $('#deleteBtn').on('click', function () {
+
+            var $checked = $('#dataList input[id=selectNo]:checked');
+            if ($checked.length < 1) {
+                alert(' 삭제할 데이터를 선택해 주세요. ');
+                return false;
+            }
+
+            if (!confirm(' 선택한 데이터를 삭제하시겠습니까? ')) {
+                return false;
+            }
+
+            var idList = [];
+            $.each($checked, function (k, v) {
+                idList.push($(this).val());
+            });
+
+
+            var $deleteForm = $('form[name=deleteForm]');
+            $deleteForm.find('input[name=idList]').val(idList.join(','));
+            $deleteForm.submit();
+
+        });
+
+
+    });
+    function modify() {
+        var url = '/board/modify/';
+        var $checked = $('#dataList input[id=selectNo]:checked');
+
+        var idList = [];
+        $.each($checked, function (k, v) {
+            idList.push($(this).val());
+        });
+
+        var len = idList.length;
+
+        if(len > 1 || len === 0){
+            alert("no는 하나만 선택하여 주십시오");
+        }else{
+            location.href= url +encodeURI(idList[0]);
+        }
+
+
+    }
+
+    function movePage() {
+        const form = document.getElementById('searchForm');
+        const queryParams = {
+            searchType: form.searchType.value
+            , keyword: form.keyword.value
+        }
+        if( (queryParams.searchType === '' || queryParams.searchType === 'undefined')  &&
+            (queryParams.keyword === '' || queryParams.keyword === 'undefined')){
+            location.href ='/board';
+        }
+       /* if (queryParams.searchType === '' || queryParams.searchType === 'undefined') {
+            alert('타입을 선택하셨나요?');
+        }
+        if (queryParams.keyword === '' || queryParams.keyword === 'undefined') {
+            alert('키워드를 입력하셨나요?');
+        }*/ else {
+            location.href = '/board/search' + '?' + new URLSearchParams(queryParams).toString();
+        }
+    }
+</script>
+
+</body>
+</html>

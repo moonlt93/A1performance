@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" action="/board">
+    <div>
+        <label for="title" class="form-label">타이틀 </label>
+        <input type="text" name="title" id="title"
+               placeholder="title을 입력해주세요" class="form-control"
+               required/>
+    </div>
+    <div>
+        <label for="content" class="form-label">본문 </label>
+        <input type="text" name="content" id="content"
+               placeholder="본문을 입력해주세요" class="form-control"
+               required/>
+    </div>
+    <div>
+        <label for="strong" class="form-label">중요게시물여부 </label>
+        <input type="checkbox" name="strong" id="strong"/>
+    </div>
+    <input type="hidden" name="nickName" th:value="${session.nickName}"/>
+    <button type="submit"> 보내기</button>
+
+</form>
+
+
+</body>
+</html>

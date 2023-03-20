@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<h1> index.jsp</h1>
+
+<form th:action="@{/board/nickName}" method="post">
+    <label for="nickName">닉네임:
+        <input type="text" id="nickName" name="nickName" placeholder="닉네임을 입력하세요." required/>
+    </label>
+    <button type="submit" id="submitBtn">입력</button>
+</form>
+
+</body>
+</html>
