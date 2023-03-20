@@ -26,14 +26,14 @@ public class BoardController {
         return "/board/register";
     }
 
-    @GetMapping("/modify/{no}")
-    public String modifyBoards(@PathVariable String no, Model model) throws IOException {
+    @GetMapping("/detail/{no}")
+    public String detailBoard(@PathVariable String no, Model model) throws IOException {
 
         int nos = Integer.parseInt(no);
         BoardDto board = boardService.getDetailBoard(nos);
         model.addAttribute("board", board);
 
-        return "/board/modify";
+        return "/board/detail";
     }
     @GetMapping("/search")
     public String getCheckList(Model model,@RequestParam(value="searchType",required = false)String searchType,
