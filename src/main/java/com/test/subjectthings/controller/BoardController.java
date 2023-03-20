@@ -42,7 +42,7 @@ public class BoardController {
         BoardDto board = boardService.getDetailBoard(nos);
         model.addAttribute("board", board);
 
-        return "/board/detail";
+        return "/board/modify";
     }
 
 
