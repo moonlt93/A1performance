@@ -31,5 +31,4 @@ AI 제출용
 7. selectbox를 통해 title, nickName을 선택하여 keyword를 get 방식으로 전송.
 
 8. db 없이 file에 string 타입으로 data가 한줄로 저장 "/"로 row를 구분, "-" 로 데이터의 column을 구분지어 기능 구현
-
-9. 페이징처리 실패               
+          
