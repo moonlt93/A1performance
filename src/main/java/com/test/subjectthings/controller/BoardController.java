@@ -35,6 +35,17 @@ public class BoardController {
 
         return "/board/detail";
     }
+    @GetMapping("/modify/{no}")
+    public String modifyBoard(@PathVariable String no, Model model) throws IOException {
+
+        int nos = Integer.parseInt(no);
+        BoardDto board = boardService.getDetailBoard(nos);
+        model.addAttribute("board", board);
+
+        return "/board/detail";
+    }
+
+
     @GetMapping("/search")
     public String getCheckList(Model model,@RequestParam(value="searchType",required = false)String searchType,
                                           @RequestParam(value="keyword",required = false)String keyword) throws IOException {
