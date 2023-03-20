@@ -9,7 +9,7 @@
 </head>
 <body>
 <a href="/board">list로 돌아가기</a>
-<form method="post" action="/board/modify">
+<form method="post" action="/board/detail">
 
     <div>
         <label for="no" class="form-label">no </label>
@@ -34,11 +34,10 @@
     <div>
         <label for="strong" class="form-label">중요게시물여부
         <input type="checkbox" name="strong" id="strong"
-        th:checked="${board.strong eq true}" readonly/>
+        th:checked="${board.strong eq true}" disabled/>
         </label>
     </div>
     <input type="hidden" name="nickName" th:value="${session.nickName}"/>
-    <button type="submit"> 보내기</button>
 
 </form>
 
