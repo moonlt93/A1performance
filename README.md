@@ -16,12 +16,20 @@ AI 제출용
 # 도메인 flow 
 
 1. 인덱스 페이지에서 닉네임 입력후 버튼 클릭시 post 방식으로 닉네임이 session에 저장됨. 
+
 2. 저장된 닉네임을 inputbox 에 확인 가능하게 노출
-3. 등록 기능: a 태그를 타고 form 태그안에 양식을 입력하면 해당 데이터가 저장됨.(중요도는 checkbox로 선택가능) 
-4. 수정 기능: 수정하고싶은 board를 하나 클릭후 선택수정 버튼을 클릭한다면 해당 board의 no가 넘어가서 no로 조회한 결과를 화면에 반환한다. 
+3. 등록 기능: 
+   a 태그를 타고 form 태그안에 양식을 입력하면 해당 데이터가 저장됨.(중요도는 checkbox로 선택가능) 
+4. 수정 기능: 
+   수정하고싶은 board를 하나 클릭후 선택수정 버튼을 클릭한다면 해당 board의 no가 넘어가서 no로 조회한 결과를 화면에 반환한다. 
               => title, content, 중요도 수정가능  no는 readonly처리 
-5. 조회 기능: no를 클릭시 해당 board 상세내역을 확인가능 readonly처리 
+5. 조회 기능: 
+   no를 클릭시 해당 board 상세내역을 확인가능 readonly처리 
+   
 6. 전체 리스트 조회시 중요도가 checked 된 row는 노란색으로 처리 
+
 7. selectbox를 통해 title, nickName을 선택하여 keyword를 get 방식으로 전송.
+
 8. db 없이 file에 string 타입으로 data가 한줄로 저장 "/"로 row를 구분, "-" 로 데이터의 column을 구분지어 기능 구현
+
 9. 페이징처리 실패               
